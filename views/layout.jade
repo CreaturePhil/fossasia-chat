@@ -13,6 +13,10 @@ html(lang="en-us")
 
   body
 
+    .ul.nav.nav-tabs(role="tablist")
+      li: a(href="javascript:void(0)"): b.text-primary Fossasia Chat
+      li.active: a(href="#home" data-toggle="tab") Home
+      li: a(href="#about" data-toggle="tab") About
     .container
       block content
 

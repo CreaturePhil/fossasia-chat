@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .tab-content
+    .tab-pane.fade.in.active#home(role="tabpanel")
+      h1 Hello
+    .tab-pane.fade#about(role="tabpanel")
+      h1 World
