@@ -1,8 +1,21 @@
 extends layout
 
 block content
+  .ul.nav.nav-tabs(role="tablist")
+    li: a(href="javascript:void(0)"): b.text-primary Fossasia Chat
+    li.active: a(href="#home" data-toggle="tab") Home
+    li: a(href="#about" data-toggle="tab") About
+
   .tab-content
     .tab-pane.fade.in.active#home(role="tabpanel")
-      h1 Hello
+      table.table.table-striped#messages
     .tab-pane.fade#about(role="tabpanel")
       h1 World
+
+  form#messageForm(role="form" action="")
+    .col-sm-11
+      .form-group
+        input.form-control#messageInput(type="text" autocomplete="off")
+    .col-sm-1
+        button.btn.btn-primary(type="submit") Send
+  

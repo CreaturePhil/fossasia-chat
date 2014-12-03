@@ -8,18 +8,15 @@ html(lang="en-us")
     meta(name="description" content="")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="css/bootstrap.min.css")
+    link(rel="stylesheet" href="css/styles.css")
 
     title #{title}
 
   body
 
-    .ul.nav.nav-tabs(role="tablist")
-      li: a(href="javascript:void(0)"): b.text-primary Fossasia Chat
-      li.active: a(href="#home" data-toggle="tab") Home
-      li: a(href="#about" data-toggle="tab") About
-    .container
-      block content
+    block content
 
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     script(src="https://cdn.socket.io/socket.io-1.2.1.js")
     script(src="js/bootstrap.min.js")
+    script(src="js/scripts.js")
