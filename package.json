@@ -3,5 +3,10 @@
   "version": "0.1.0",
   "description": "Simple chat application.",
   "author": "Philip La",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.10.4",
+    "morgan": "^1.5.0",
+    "socket.io": "^1.2.1"
+  }
 }
