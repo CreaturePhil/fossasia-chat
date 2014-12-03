@@ -1,8 +1,10 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var express = require('express')
 var path = require('path');
 var morgan = require('morgan');
+
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,9 +24,14 @@ app.use(function(req, res, next) {
   var err = new Error('Page Not Found');
   err.status = 404;
   res.status(err.status || 500);
+
   res.render('error', {
     title: 'Page not found',
     message: err.message,
     error: err
   });
+});
+
+http.listen(3000, function() {
+  console.log('listening on http://localhost:3000');
 });
