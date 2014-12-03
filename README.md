@@ -2,7 +2,15 @@
 
 Simple chat application.
 
-## License (MIT)
+### Getting Started
+
+```bash
+$ git clone https://github.com/CreaturePhil/fossasia-chat.git
+$ cd fossasia && npm install
+$ npm start
+```
+
+### License (MIT)
 
 Copyright (c) 2014 Philip La
 
