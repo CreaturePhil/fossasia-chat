@@ -1,15 +1,22 @@
 $(function() {
   var socket = io();
-  var $messageInput = $('#messageInput');
 
-  $('#messageForm').on('submit', function(e) {
-    e.preventDefault();
-    socket.emit('chat message', $messageInput.val());
-    $messageInput.val('');
+  var $window = $(window);
+  var $messages = $('.messages');
+  var $inputMessage = $('.inputMessage');
+
+  $messages.css('height', $window.outerHeight() - 76 + 'px');
+
+  $window.on('keydown', function(e) {
+    if (e.which === 13 && $inputMessage.val()) {
+      socket.emit('chat message', $inputMessage.val());
+      $inputMessage.val('');
+    }
   });
 
   socket.on('chat message', function(msg) {
-    var message = '<tr><td>' + msg + '</td></tr>'; 
-    $('#messages').append(message);
+    $messages.append($('<li>').text(msg));
+    $messages.scrollTop($messages[0].scrollHeight);
   });
+
 });

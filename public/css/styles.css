@@ -1,13 +1,21 @@
-#messages {
-  overflow: auto;
-  word-wrap: break-word;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-#messageForm {
+.messages {
+  overflow: auto;
+  margin: 0;
+  padding: 10px 20px 10px 20px;
+  list-style: none;
+  word-wrap: break-word;
+  list-style-position: inside;
+}
+
+.inputMessage {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  width: 100%;
 }
