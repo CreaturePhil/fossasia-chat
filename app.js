@@ -34,21 +34,24 @@ app.use(function(req, res, next) {
 
 var users = {};
 var numUsers = 0;
+var oldUsername = '';
 
 io.on('connection', function(socket) {
 
   numUsers += 1;
   io.emit('user join', 'Guest ' + numUsers);
+  socket.username = 'Guest ' + numUsers;
 
   socket.on('chat message', function(msg) {
     io.emit('chat message', msg);
   });
 
-  socket.on('add user', function(username) {
-    socket.username = username; 
-
-    user[username] = username;
-    io.emit('user join', username);
+  socket.on('change username', function(username) {
+    delete users[socket.username];
+    oldUsername = socket.username;
+    socket.username = username.split(' ')[1];
+    users[username] = username;
+    return io.emit('change username', { old: oldUsername, new: socket.username });
   });
 
   socket.on('disconnect', function() {
