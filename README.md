@@ -6,7 +6,7 @@ Simple chat application.
 
 ```bash
 $ git clone https://github.com/CreaturePhil/fossasia-chat.git
-$ cd fossasia && npm install
+$ cd fossasia-chat && npm install
 $ npm start
 ```
 
