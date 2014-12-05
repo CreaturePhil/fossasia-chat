@@ -32,10 +32,31 @@ app.use(function(req, res, next) {
   });
 });
 
+var users = {};
+var numUsers = 0;
+
 io.on('connection', function(socket) {
+
+  numUsers += 1;
+  io.emit('user join', 'Guest ' + numUsers);
+
   socket.on('chat message', function(msg) {
     io.emit('chat message', msg);
   });
+
+  socket.on('add user', function(username) {
+    socket.username = username; 
+
+    user[username] = username;
+    io.emit('user join', username);
+  });
+
+  socket.on('disconnect', function() {
+    delete users[socket.username];
+    numUsers--;
+    io.emit('user left', socket.username);
+  });
+
 });
 
 http.listen(3000, function() {
