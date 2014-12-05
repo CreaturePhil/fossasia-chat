@@ -4,9 +4,10 @@ $(function() {
   var $window = $(window);
   var $messages = $('.messages');
   var $inputMessage = $('.inputMessage');
-  var username;
+  var username, pmUser;
 
   $messages.css('height', $window.outerHeight() - 76 + 'px');
+  addMessage('Use /username [Put name here] to change your username.');
 
   function addMessage(msg) {
     $messages.append($('<li>').text(msg));
@@ -23,13 +24,34 @@ $(function() {
         }
         addMessage('Command does not exist.');
       } else {
-        socket.emit('chat message', username + ': ' + message);
+        socket.emit('chat message', message);
       }
     }
   });
 
+  $('.messages').on('click', '.pm', function() {
+    pmUser = $(this).data('username');
+  });
+
+  $('.pmSend').on('click', function() {
+    var msg = $('.pmSend').closest('.modal-footer').prev().find('textarea');
+    var req = {
+      from: username,
+      to: pmUser,
+      message: msg.val()
+    };
+    msg.val('');
+    socket.emit('private message', req);
+  });
+
   socket.on('chat message', function(msg) {
-    addMessage(msg);
+    var dropdown = $('<li><div class="dropdown"> <a id="dLabel" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">' + username + ':</a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li><a href="javascript:void(0)" data-toggle="modal" data-target="#pm" class="pm" data-username="' + username + '">Private Message</a></li></ul> ' + $('<div>').text(msg).text() + '</div></li>');
+    $messages.append(dropdown);
+    $messages.scrollTop($messages[0].scrollHeight);
+  });
+
+  socket.on('recieve pm', function(req) {
+    addMessage(req.from + ' says: ' + req.message); 
   });
 
   socket.on('user join', function(data) {

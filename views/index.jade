@@ -10,6 +10,17 @@ block content
     .tab-pane.fade.in.active#home(role="tabpanel")
       ul.messages
     .tab-pane.fade#about(role="tabpanel")
-      h1 World
+      h1 This is made by Philip La (CreaturePhil).
 
   input.inputMessage.form-control(type="text")
+
+  #pm.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(data-dismiss='modal')
+            span(aria-hidden='true') Close
+          h4#myModalLabel.modal-title Private message
+        .modal-body: textarea.form-control
+        .modal-footer
+          button.btn.btn-default.pmSend(data-dismiss='modal') Send

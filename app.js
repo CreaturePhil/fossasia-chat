@@ -39,8 +39,10 @@ var oldUsername = '';
 io.on('connection', function(socket) {
 
   numUsers += 1;
-  io.emit('user join', 'Guest ' + numUsers);
-  socket.username = 'Guest ' + numUsers;
+  var name = 'Guest ' + numUsers;
+  io.emit('user join', name);
+  socket.username = name;
+  users[socket.username] = { username: socket.username, socket: socket };
 
   socket.on('chat message', function(msg) {
     io.emit('chat message', msg);
@@ -50,8 +52,12 @@ io.on('connection', function(socket) {
     delete users[socket.username];
     oldUsername = socket.username;
     socket.username = username.split(' ')[1];
-    users[username] = username;
-    return io.emit('change username', { old: oldUsername, new: socket.username });
+    users[username] = { username: username, socket: socket };
+    io.emit('change username', { old: oldUsername, new: socket.username });
+  });
+
+  socket.on('private message', function(req) {
+    users[req.to].socket.emit('recieve pm', req);
   });
 
   socket.on('disconnect', function() {
